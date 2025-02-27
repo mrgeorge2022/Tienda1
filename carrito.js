@@ -357,6 +357,53 @@ function monitorearCambios() {
     });
 }
 
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Función para generar el número único de factura
+function generarNumeroFactura() {
+    const nombre = localStorage.getItem('nombre') || "Usuario";
+    const telefono = localStorage.getItem('telefono') || "0000000000";
+    
+    // Tomamos las primeras 3 letras del nombre (si tiene menos de 3, tomamos lo que haya)
+    const letrasNombre = nombre.slice(0, 3).toUpperCase();
+    
+    // Tomamos los últimos 3 dígitos del teléfono
+    const ultimos3Digitos = telefono.slice(-3);
+    
+    // Obtenemos la fecha actual en formato compactado (Año-Mes-Día)
+    const fechaActual = new Date();
+    const dia = String(fechaActual.getDate()).padStart(2, '0');
+    const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
+    const anio = fechaActual.getFullYear().toString().slice(-2);  // Solo los últimos 2 dígitos del año
+    
+    const fecha = `${anio}${mes}${dia}`;  // Combinamos la fecha como un string corto
+    
+    // Obtener la hora exacta (hora, minutos, segundos)
+    const hora = String(fechaActual.getHours()).padStart(2, '0');
+    const minutos = String(fechaActual.getMinutes()).padStart(2, '0');
+    const segundos = String(fechaActual.getSeconds()).padStart(2, '0'); // Añadimos los segundos
+    
+    // Combinamos todo para formar un número único de factura
+    const numeroFactura = `${letrasNombre}${ultimos3Digitos}${fecha}${hora}${minutos}${segundos}`;
+
+    // Guardamos la fecha y hora exacta de la compra en localStorage para usarla más tarde en la impresión
+    localStorage.setItem('horaCompra', `${hora}:${minutos}:${segundos}`);
+
+    return numeroFactura;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 // Función para finalizar la compra
 function finalizarCompra() {
     const nombre = localStorage.getItem('nombre') || "Nombre no proporcionado";
@@ -367,6 +414,12 @@ function finalizarCompra() {
     
     // Formatear el número telefónico con el patrón 000 000 0000
     telefono = telefono.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
+
+    // Generar el número de factura único
+    const numeroFactura = generarNumeroFactura();
+    
+    // Guardar el número de factura en localStorage
+    localStorage.setItem('numeroFactura', numeroFactura);
 
     // Obtener la fecha y hora actuales
     const fechaActual = new Date();
@@ -385,6 +438,7 @@ function finalizarCompra() {
 
     // Generar el mensaje de WhatsApp para "Recoger en Tienda"
     let mensaje = "*RECOGER EN TIENDA*\n\n";
+    mensaje += `*FACTURA Nº: #${numeroFactura}*\n`;
     mensaje += `*FECHA:* ${fecha}\n`;
     mensaje += `*HORA:* ${hora}\n\n`;
     mensaje += "*DATOS DEL USUARIO:*\n";
@@ -403,7 +457,13 @@ function finalizarCompra() {
 
     // Mostrar el modal tras finalizar la compra
     mostrarModalCarrito();
+
+    // Mostrar el botón de imprimir en el modal
+    const imprimirBtn = document.getElementById('imprimirFacturaBtn');
+    imprimirBtn.style.display = 'inline-block';  // Mostrar el botón de imprimir factura
 }
+
+
 
 // Mostrar el modal de finalización de compra
 function mostrarModalCarrito() {
@@ -455,7 +515,75 @@ window.onload = loadCart;
 
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// Función para imprimir la factura
+function imprimirFactura() {
+    const nombre = localStorage.getItem('nombre') || "Nombre no proporcionado";
+    let telefono = localStorage.getItem('telefono') || "Teléfono no proporcionado";
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    const metodoPago = localStorage.getItem('metodoPago') || 'No seleccionado';  // Por defecto 'No seleccionado' si no hay valor
+    const totalProductos = cartItems.reduce((acc, item) => acc + (parseFloat(item.price) * item.quantity), 0);
+    
+    // Recuperar el número de factura desde localStorage
+    const numeroFactura = localStorage.getItem('numeroFactura') || "No disponible";  // Si no hay número, usar un valor predeterminado
+    const horaCompra = localStorage.getItem('horaCompra') || "Hora no disponible"; // Hora exacta de la compra
+
+    // Formatear el número telefónico con el patrón 000 000 0000
+    telefono = telefono.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
+
+    // Obtener la fecha y hora actuales
+    const fechaActual = new Date();
+    const dia = String(fechaActual.getDate()).padStart(2, '0');
+    const mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Los meses son base 0
+    const anio = fechaActual.getFullYear();
+    const fecha = `${dia}/${mes}/${anio}`;
+
+
+    // Crear el bloque de texto con los productos seleccionados
+    let messageProducts = cartItems.map(item => 
+        `*${item.name} - $${formatNumber(parseFloat(item.price) || 0)} x ${item.quantity} = $${formatNumber(parseFloat(item.price) * item.quantity)}*` +  // Total de cada producto
+        `\n _${item.instructions || ''}_`  // Instrucciones del producto
+    ).join('\n');
+
+    // Generar el mensaje de la factura con el número de factura
+    let facturaTexto = `
+------------------------------------------------------
+MR. GEORGE - SINCE 2022
+------------------------------------------------------
+
+RECOGER EN TIENDA
+
+FACTURA Nº: #${numeroFactura}
+FECHA: ${fecha}
+HORA: ${horaCompra}
+
+DATOS DEL USUARIO:
+Nombre: ${nombre}
+Teléfono: ${telefono}
+
+PRODUCTOS SELECCIONADOS:
+
+${messageProducts}
+
+TOTAL A PAGAR: $${formatNumber(totalProductos)}
+MÉTODO DE PAGO: ${metodoPago}
+    
+------------------------------------------------------
+¡Gracias por tu compra!
+------------------------------------------------------
+`;
+
+    // Abrir una ventana nueva para mostrar la factura
+    const ventanaImpresion = window.open('', '', 'width=800,height=600');
+    ventanaImpresion.document.write(`<html><head><title>FACTURA Nº: #${numeroFactura}</title></head><body>`);
+    ventanaImpresion.document.write('<pre>' + facturaTexto + '</pre>');
+    ventanaImpresion.document.write('</body></html>');
+    ventanaImpresion.document.close();
+    ventanaImpresion.print();
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 

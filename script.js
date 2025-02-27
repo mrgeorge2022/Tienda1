@@ -141,6 +141,11 @@ const images = [
   'anuncios/ILUSTRACION1.jpg',
   'anuncios/ILUSTRACION2.jpg',
   'anuncios/ILUSTRACION3.jpg',
+  'anuncios/ILUSTRACION4.jpg',
+  'anuncios/ILUSTRACION6.jpg',
+  'anuncios/ILUSTRACION8.jpg',
+  'anuncios/ILUSTRACION9.jpg',
+  'anuncios/ILUSTRACION10.jpg',
 
 ];
 
@@ -276,63 +281,63 @@ let cart = []; // Este arreglo almacenará los productos del carrito con su cant
 
 function displayProducts(category = '', searchQuery = '') {
   const products = [
-    
     { 
       id: 1, 
-      image: 'img/productos/LaCosteña.jpg', 
-      name: 'La Costeña', 
-      category: ['todos','hamburguesas'], 
-      price: 21000, 
-      description: '¡Un viaje directo al paraíso del sabor!' 
-    },
-    { 
-      id: 2, 
-      image: 'img/productos/LaMentirosa.jpg', 
-      name: 'La Mentirosa', 
-      category: ['todos','hamburguesas'], 
-      price: 24000, 
-      description: '¡Sabor tan increíble, que parece un mito!' 
-    },
-    { 
-      id: 3, 
-      image: 'img/productos/LaBestia.jpg', 
-      name: 'La Bestia', 
-      category: ['todos','hamburguesas', 'recomendados'], 
-      price: 28000, 
-      description: '¡Doble de carne, doble de sabor, el rey de las hamburguesas!' 
-    },
-    { 
-      id: 4, 
-      image: 'img/productos/mister.jpg', 
-      name: 'Mister', 
-      category: ['todos','perros'], 
-      price: 15000, 
-      description: '¡El sabor artesanal, en su máxima expresión!' 
-    },
-    { 
-      id: 5, 
-      image: 'img/productos/royal.jpg', 
-      name: 'Royal', 
-      category: ['todos','perros'], 
-      price: 18000, 
-      description: '¡Un bocado real, lleno de sabor y frescura!' 
-    },
-    { 
-      id: 6, 
       image: 'img/productos/express.jpg', 
       name: 'Express', 
       category: ['todos','perros','recomendados'], 
-      price: 19000, 
+      price: 15000, 
       description: '¡Rapidez, sabor y calidad en cada mordisco!' 
     },
     { 
-      id: 7, 
+      id: 2, 
+      image: 'img/productos/mister.jpg', 
+      name: 'Mister', 
+      category: ['todos','perros'], 
+      price: 10000, 
+      description: '¡El sabor artesanal, en su máxima expresión!' 
+    },
+    { 
+      id: 3, 
+      image: 'img/productos/royal.jpg', 
+      name: 'Royal', 
+      category: ['todos','perros'], 
+      price: 14000, 
+      description: '¡Un bocado real, lleno de sabor y frescura!' 
+    },
+    { 
+      id: 4, 
       image: 'img/productos/rancher.jpg', 
       name: 'Rancher', 
       category: ['todos','perros'], 
-      price: 20000, 
+      price: 16000, 
       description: '¡Irresistible y lleno de pasión, el mejor perro de la casa!' 
     },
+    { 
+      id: 5, 
+      image: 'img/productos/LaCosteña.jpg', 
+      name: 'La Costeña', 
+      category: ['todos','hamburguesas'], 
+      price: 17000, 
+      description: '¡Un viaje directo al paraíso del sabor!' 
+    },
+    { 
+      id: 6, 
+      image: 'img/productos/LaMentirosa.jpg', 
+      name: 'La Mentirosa', 
+      category: ['todos','hamburguesas'], 
+      price: 20000, 
+      description: '¡Sabor tan increíble, que parece un mito!' 
+    },
+    { 
+      id: 7, 
+      image: 'img/productos/LaBestia.jpg', 
+      name: 'La Bestia', 
+      category: ['todos','hamburguesas', 'recomendados'], 
+      price: 24000, 
+      description: '¡Doble de carne, doble de sabor, el rey de las hamburguesas!' 
+    },
+
     { 
       id: 8, 
       image: 'img/productos/papasfrancesas.jpg', 
@@ -343,6 +348,22 @@ function displayProducts(category = '', searchQuery = '') {
     },
     { 
       id: 9, 
+      image: 'img/productos/LaSalchichera.jpg', 
+      name: 'La Salchichera', 
+      category: ['todos','salchipapas'], 
+      price: 15000, 
+      description: '¡Una explosión de sabor en cada bocado!' 
+    },
+    { 
+      id: 10, 
+      image: 'img/productos/Choripapazo.jpg', 
+      name: 'Choripapazo', 
+      category: ['todos','salchipapas','recomendados'], 
+      price: 18000, 
+      description: '¡Atrévete a probar una explosión de sabores!' 
+    },
+    { 
+      id: 11, 
       image: 'img/productos/golosa.jpg', 
       name: 'La Golosa', 
       category: ['todos','picadas','recomendados'], 
@@ -350,7 +371,7 @@ function displayProducts(category = '', searchQuery = '') {
       description: '¡Un festín de sabores que te hará volver por más!' 
     },
     { 
-      id: 10, 
+      id: 12, 
       image: 'img/productos/atrevida.jpg', 
       name: 'La Atrevida', 
       category: ['todos','picadas','recomendados'], 
@@ -358,7 +379,7 @@ function displayProducts(category = '', searchQuery = '') {
       description: '¡Para los que se atreven a disfrutar el sabor sin límites!' 
     },
     { 
-      id: 11, 
+      id: 13, 
       image: 'img/productos/limon.jpg', 
       name: 'Limonada', 
       category: ['todos','bebidas','recomendados'], 
@@ -366,7 +387,7 @@ function displayProducts(category = '', searchQuery = '') {
       description: '¡Frescura que te llena de vida en cada sorbo!' 
     },
     { 
-      id: 12, 
+      id: 14, 
       image: 'img/productos/mora.jpg', 
       name: 'Mora En Leche', 
       category: ['todos','bebidas'], 
@@ -374,7 +395,7 @@ function displayProducts(category = '', searchQuery = '') {
       description: '¡El sabor que acaricia tus sentidos!' 
     },
     { 
-      id: 13, 
+      id: 15, 
       image: 'img/productos/maracuya.jpg', 
       name: 'Maracuyá', 
       category: ['todos','bebidas','recomendados'],
@@ -382,7 +403,7 @@ function displayProducts(category = '', searchQuery = '') {
       description: '¡Pura pasión en cada gota!' 
     },
     { 
-      id: 14, 
+      id: 16, 
       image: 'img/productos/lulo.jpg', 
       name: 'Lulo', 
       category: ['todos','bebidas'], 
@@ -390,7 +411,7 @@ function displayProducts(category = '', searchQuery = '') {
       description:'¡La frescura cítrica que te llena de energía!' 
     },
     { 
-      id: 15, 
+      id: 17, 
       image: 'img/productos/combofantasticweb.jpg', 
       name: 'Combo Fantastic', 
       category: ['todos','combos','recomendados'], 
@@ -525,62 +546,63 @@ document.addEventListener('click', function(event) {
 // FUNCIÓN PARA ABRIR EL MODAL CON LOS DETALLES DEL PRODUCTO
 function openModal(productId) {
   const products = [
+    { 
+      id: 1, 
+      image: 'img/productos/express.jpg', 
+      name: 'Express', 
+      category: 'perros', 
+      price: 15000, 
+      description: 'Un pan artesanal relleno de chorizo Express Parisienne y tocineta ahumada, realzado con salsa de cilantro, salsa crema parrilla, plátano amarillo frito y salsa de maíz dulce. ¡Todo cubierto con queso mozzarella y maíz tierno!' 
+    },
+    { 
+      id: 2, 
+      image: 'img/productos/mister.jpg', 
+      name: 'Mister', 
+      category: 'perros', 
+      price: 10000, 
+      description: 'El auténtico pan artesanal con una salchicha premium Cunit extra larga, acompañada de queso costeño artesanal, cebolla caramelizada gourmet, salsa fresca de cilantro y un toque especial de crema parrillera.' 
+  },
+  { 
+      id: 3, 
+      image: 'img/productos/royal.jpg', 
+      name: 'Royal', 
+      category: 'perros', 
+      price: 14000, 
+      description: 'Pan artesanal coronado con salchicha Cunit Jumbo, salsa de cilantro, trozos frescos de aguacate, salsa crema parrilla y una combinación de queso mozzarella y maíz tierno. ¡Una delicia real!' 
+  },
+  { 
+      id:4, 
+      image: 'img/productos/rancher.jpg', 
+      name: 'Rancher', 
+      category: 'perros', 
+      price: 16000, 
+      description: 'Pan artesanal con salchicha ranchera y crujientes tiras de tocineta ahumada, combinado con salsa de cilantro, salsa crema parrilla, plátano amarillo frito, salsa de maíz dulce y una capa de queso mozzarella con maíz tierno. ¡Irresistible!' 
+  },
       {
-          id: 1, 
+          id: 5, 
           image: 'img/productos/LaCosteña.jpg', 
           name: 'La Costeña', 
           category: 'hamburguesas', 
-          price: 21000, 
+          price: 17000, 
           description: 'Carne de res jugosa (150g), queso costeño, tocineta ahumada, lechuga crespa, cebolla caramelizada estilo gourmet, salsa de cilantro, salsa crema parrilla y salsa de maíz dulce. ¡Una explosión de sabor!' 
       },
       { 
-          id: 2, 
+          id: 6, 
           image: 'img/productos/LaMentirosa.jpg', 
           name: 'La Mentirosa', 
           category: 'hamburguesas', 
-          price: 24000, 
+          price: 20000, 
           description: 'Carne de res (150g), lechuga fresquita, cebolla caramelizada, aguacate cremoso, salsa de cilantro, salsa crema parrilla y salsa de maíz dulce. Todo esto, presentado con queso mozzarella y maíz tierno. ¡Increíblemente deliciosa!' 
       },
       { 
-          id: 3, 
+          id: 7, 
           image: 'img/productos/LaBestia.jpg', 
           name: 'La Bestia', 
           category: 'hamburguesas', 
-          price: 28000,  
+          price: 24000,  
           description: 'Doble carne de res (300g), tocineta ahumada, lechuga fresquita, cebolla caramelizada estilo gourmet, salsa de cilantro, salsa crema parrilla y salsa de maíz dulce. ¡Completada con plátano amarillo frito, aguacate y una capa de queso mozzarella con maíz tierno!' 
       },
-      { 
-          id: 4, 
-          image: 'img/productos/mister.jpg', 
-          name: 'Mister', 
-          category: 'perros', 
-          price: 15000, 
-          description: 'El auténtico pan artesanal con una salchicha premium Cunit extra larga, acompañada de queso costeño artesanal, cebolla caramelizada gourmet, salsa fresca de cilantro y un toque especial de crema parrillera.' 
-      },
-      { 
-          id: 5, 
-          image: 'img/productos/royal.jpg', 
-          name: 'Royal', 
-          category: 'perros', 
-          price: 18000, 
-          description: 'Pan artesanal coronado con salchicha Cunit Jumbo, salsa de cilantro, trozos frescos de aguacate, salsa crema parrilla y una combinación de queso mozzarella y maíz tierno. ¡Una delicia real!' 
-      },
-      { 
-          id: 6, 
-          image: 'img/productos/express.jpg', 
-          name: 'Express', 
-          category: 'perros', 
-          price: 19000, 
-          description: 'Un pan artesanal relleno de chorizo Express Parisienne y tocineta ahumada, realzado con salsa de cilantro, salsa crema parrilla, plátano amarillo frito y salsa de maíz dulce. ¡Todo cubierto con queso mozzarella y maíz tierno!' 
-      },
-      { 
-          id:7, 
-          image: 'img/productos/rancher.jpg', 
-          name: 'Rancher', 
-          category: 'perros', 
-          price: 20000, 
-          description: 'Pan artesanal con salchicha ranchera y crujientes tiras de tocineta ahumada, combinado con salsa de cilantro, salsa crema parrilla, plátano amarillo frito, salsa de maíz dulce y una capa de queso mozzarella con maíz tierno. ¡Irresistible!' 
-      },
+      
       { 
         id: 8, 
         image: 'img/productos/papasfrancesas.jpg', 
@@ -590,7 +612,23 @@ function openModal(productId) {
         description: '¡Delicias de papas junto con paprika!' 
       },
       { 
-          id: 9, 
+        id: 9, 
+        image: 'img/productos/LaSalchichera.jpg', 
+        name: 'La Salchichera', 
+        category: ['todos','salchipapas'], 
+        price: 15000, 
+        description: 'Deliciosa salchipapa con salsa de maíz, crema parrillera, salchichas New Yorker, queso mozzarella derretido y jamón. ¡Un festín de sabores en cada bocado!' 
+      },
+      { 
+        id: 10, 
+        image: 'img/productos/Choripapazo.jpg', 
+        name: 'Choripapazo', 
+        category: ['todos','salchipapas','recomendados'], 
+        price: 18000, 
+        description: 'Chorizo express jugoso, salsa de maíz cremosa, crema parrillera, queso mozzarella derretido y un toque de jamón. ¡Una combinación perfecta en cada bocado!' 
+      },
+      { 
+          id: 11, 
           image: 'img/productos/golosa.jpg', 
           name: 'La Golosa', 
           category: 'picadas', 
@@ -598,7 +636,7 @@ function openModal(productId) {
           description: 'Chorizo costeño, cerdo jugoso y pechuga de pollo, acompañados de queso mozzarella, maíz tierno, salsa de cilantro, salsa crema parrilla, papas fritas Fritters, aguacate fresco y un toque especial de salsa de maíz. ¡Un festín irresistible!' 
       },
       { 
-          id: 10, 
+          id: 12, 
           image: 'img/productos/atrevida.jpg', 
           name: 'La Atrevida', 
           category: 'picadas', 
@@ -606,7 +644,7 @@ function openModal(productId) {
           description: 'Chorizo costeño, chuleta de cerdo, salchicha ranchera y pechuga de pollo jugosa, todo cubierto con queso mozzarella, maíz tierno y tocineta ahumada. Añadido con salsa de cilantro, salsa crema parrilla, papas fritas Fritters, aguacate fresco, salsa de maíz dulce y un toque de plátano amarillo frito. ¡Una experiencia llena de sabor!' 
       },
       {
-          id: 11, 
+          id: 13, 
           image: 'img/productos/limon.jpg', 
           name: 'Limonada', 
           category: ['todos','bebidas','recomendados'], 
@@ -614,7 +652,7 @@ function openModal(productId) {
           description: 'Nuestra limonada combina zumo de limones frescos, el toque justo de dulzura y abundante hielo para ofrecerte una bebida naturalmente refrescante y llena de sabor. ¡Perfecta para cualquier momento del día!' 
       },
       { 
-          id: 12, 
+          id: 14, 
           image: 'img/productos/mora.jpg', 
           name: 'Mora En Leche', 
           category: ['todos','bebidas'], 
@@ -622,7 +660,7 @@ function openModal(productId) {
           description: 'Nuestro jugo de mora en leche es una mezcla perfecta de moras jugosas y leche cremosa, creando una bebida suave, dulce y llena de sabor natural. Ideal para disfrutar en cualquier momento y dejarte conquistar por     su frescura.' 
       },
       { 
-          id: 13, 
+          id: 15, 
           image: 'img/productos/maracuya.jpg', 
           name: 'Maracuyá', 
           category: ['todos','bebidas','recomendados'], 
@@ -630,7 +668,7 @@ function openModal(productId) {
           description:'Nuestra bebida de maracuyá combina el intenso sabor tropical de su pulpa con la frescura justa para ofrecerte una experiencia deliciosa y revitalizante. Ideal para los amantes de lo exótico. ¡Perfecta para     cualquier ocasión!' 
       },
       { 
-          id: 14, 
+          id: 16, 
           image: 'img/productos/lulo.jpg', 
           name: 'Lulo', 
           category: ['todos','bebidas','recomendados'], 
@@ -638,7 +676,7 @@ function openModal(productId) {
           description:'Disfruta de nuestra bebida de lulo, una mezcla única de su pulpa ácida y refrescante con el toque perfecto de dulzura. Cada sorbo es un estallido de sabor natural, ideal para revitalizar tus días y refrescarte en     cualquier momento. ¡Déjate sorprender por su autenticidad!' 
       },
       { 
-        id: 15, 
+        id: 17, 
         image: 'img/productos/combofantasticweb.jpg', 
         name: 'Combo Fantastic', 
         category: ['todos','combos','recomendados'], 
@@ -700,14 +738,20 @@ window.onclick = function (event) {
 
 // FUNCIÓN PARA AGREGAR AL CARRITO DESDE EL MODAL
 function addToCartFromModal() {
+  console.log('Verificando si la tienda está abierta o en reserva...');
 
+  // VERIFICAR SI LA TIENDA ESTÁ ABIERTA O EN RESERVA
+  const estadoTienda = document.getElementById('estado-tienda').textContent; // Obtener el texto del estado
 
-  console.log('Verificando si la tienda está abierta...');
-
-  // VERIFICAR SI LA TIENDA ESTÁ ABIERTA
-  if (!estaAbierta()) {
+  if (estadoTienda === "La tienda está cerrada.") {
     alert("La tienda está cerrada, no puedes agregar productos al carrito en este momento. Te invitamos a ver nuestro horario");
-    return; // DETIENE LA FUNCIÓN SI LA TIENDA ESTÁ CERRADA
+    return; // DETIENE LA FUNCIÓN SI LA TIENDA ESTÁ CERRADA Y NO EN RESERVA
+  }
+
+  // Si la tienda está en estado de "reserva"
+  if (estadoTienda === "La tienda está cerrada, pero puedes hacer una reserva.") {
+    // Aquí permitimos agregar al carrito aunque la tienda esté cerrada
+    alert("La tienda está cerrada, pero puedes hacer una reserva. ¡Agregando al carrito!");
   }
 
   const name = document.getElementById('modal-product-name').innerText;
@@ -732,6 +776,8 @@ function addToCartFromModal() {
 
   // ACTUALIZAR EL CONTADOR DEL CARRITO
   updateCartCount();
+
+
 
   
 
@@ -826,7 +872,7 @@ const horariosTienda = [
   { dia: 1, horaApertura: 18, horaCierre: 24 },  // Lunes 
   { dia: 2, horaApertura: 18, horaCierre: 24 },  // Martes
   { dia: 3, horaApertura: null, horaCierre: null},  // Miércoles - cerrdado
-  { dia: 4, horaApertura: 1, horaCierre: 24 },  // Jueves -prueba
+  { dia: 4, horaApertura: 16, horaCierre: 24 },  // Jueves -prueba
   { dia: 5, horaApertura: 18, horaCierre: 24 },  // Viernes
   { dia: 6, horaApertura: 18, horaCierre: 24 },  // Sábado
 ];
@@ -861,14 +907,29 @@ function actualizarEstadoTienda() {
   // BUSCAR EL HORARIO CORRESPONDIENTE AL DÍA ACTUAL
   const horarioHoy = horariosTienda.find(horario => horario.dia === diaActual);
 
+  // Si la tienda está abierta
   if (horarioHoy && horarioHoy.horaApertura !== null && horarioHoy.horaCierre !== null && horaActual >= horarioHoy.horaApertura && horaActual < horarioHoy.horaCierre) {
       estadoTienda.textContent = "¡La tienda está abierta!";
       estadoTienda.classList.add("abierto");
-      estadoTienda.classList.remove("cerrado");
+      estadoTienda.classList.remove("cerrado", "reserva");
+  }
+  // Si la tienda está cerrada pero se pueden hacer reservas
+  else if (horarioHoy && horarioHoy.horaApertura !== null && horaActual < horarioHoy.horaApertura) {
+      // Si es 1 hora antes de abrir, mostrar mensaje de reserva
+      const horaReserva = horarioHoy.horaApertura - 1; // 1 hora antes de apertura
+      if (horaActual >= horaReserva) {
+          estadoTienda.textContent = "Cerrado, reserva disponible.";
+          estadoTienda.classList.add("reserva");
+          estadoTienda.classList.remove("abierto", "cerrado");
+      } else {
+          estadoTienda.textContent = "La tienda está cerrada.";
+          estadoTienda.classList.add("cerrado");
+          estadoTienda.classList.remove("abierto", "reserva");
+      }
   } else {
       estadoTienda.textContent = "La tienda está cerrada.";
       estadoTienda.classList.add("cerrado");
-      estadoTienda.classList.remove("abierto");
+      estadoTienda.classList.remove("abierto", "reserva");
   }
 }
 
@@ -876,6 +937,7 @@ function actualizarEstadoTienda() {
 document.addEventListener("DOMContentLoaded", function() {
   actualizarEstadoTienda();
 });
+
 
 // Función para calcular los minutos restantes
 function calcularMinutosRestantes(horaFin) {

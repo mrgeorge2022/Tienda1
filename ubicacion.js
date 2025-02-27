@@ -647,7 +647,6 @@ function cerrarModaldatospersonales() {
 const inputNombre = document.getElementById('nombre');
 inputNombre.addEventListener('input', () => {
     // Validar si solo hay letras y espacios
-    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
     // Si el texto contiene caracteres no permitidos, los eliminamos
     inputNombre.value = inputNombre.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
 });
@@ -769,6 +768,45 @@ function monitorearCambios() {
     });
 }
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Función para generar el número único de factura
+function generarNumeroFactura() {
+    const nombre = localStorage.getItem('nombre') || "Usuario";
+    const telefono = localStorage.getItem('telefono') || "0000000000";
+    
+    // Tomamos las primeras 3 letras del nombre (si tiene menos de 3, tomamos lo que haya)
+    const letrasNombre = nombre.slice(0, 3).toUpperCase();
+    
+    // Tomamos los últimos 3 dígitos del teléfono
+    const ultimos3Digitos = telefono.slice(-3);
+    
+    // Obtenemos la fecha actual en formato compactado (Año-Mes-Día)
+    const fechaActual = new Date();
+    const dia = String(fechaActual.getDate()).padStart(2, '0');
+    const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
+    const anio = fechaActual.getFullYear().toString().slice(-2);  // Solo los últimos 2 dígitos del año
+    
+    const fecha = `${anio}${mes}${dia}`;  // Combinamos la fecha como un string corto
+    
+    // Obtener la hora exacta (hora, minutos, segundos)
+    const hora = String(fechaActual.getHours()).padStart(2, '0');
+    const minutos = String(fechaActual.getMinutes()).padStart(2, '0');
+    const segundos = String(fechaActual.getSeconds()).padStart(2, '0'); // Añadimos los segundos
+    
+    // Combinamos todo para formar un número único de factura
+    const numeroFactura = `${letrasNombre}${ultimos3Digitos}${fecha}${hora}${minutos}${segundos}`;
+
+    // Guardamos la fecha y hora exacta de la compra en localStorage para usarla más tarde en la impresión
+    localStorage.setItem('horaCompra', `${hora}:${minutos}:${segundos}`);
+
+    return numeroFactura;
+}
+
+
+
+
+
 // Función para finalizar la compra
 function finalizarCompra() {
     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
@@ -803,7 +841,7 @@ function finalizarCompra() {
 
     const metodoPago = localStorage.getItem('metodoPago') || 'No seleccionado';
     const ubicacion = localStorage.getItem('ubicacion') || document.getElementById('direccion').value || "Ubicación no disponible";
-    const puntoDeReferencia = document.getElementById('Punto_de_referencia').value || "Ninguno";
+    const puntoDeReferencia = document.getElementById('Punto_de_referencia').value || "No proporcionado";
 
     // Obtener las coordenadas de latitud y longitud
     const latitud = localStorage.getItem('latitud');
@@ -824,10 +862,18 @@ function finalizarCompra() {
     // Formatear el número telefónico con el patrón 000 000 0000
     telefono = telefono.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
 
+
+        // Generar el número de factura único
+        const numeroFactura = generarNumeroFactura();
+    
+        // Guardar el número de factura en localStorage
+        localStorage.setItem('numeroFactura', numeroFactura);
+
     // Generar el mensaje para WhatsApp
     const whatsappMessage = `
 *DOMICILIO*
 
+FACTURA Nº: #${numeroFactura}
 *FECHA:* ${fecha}
 *HORA:* ${hora}
 
@@ -859,6 +905,10 @@ ${googleMapsLink}`;
 
     // Mostrar el modal tras finalizar la compra
     mostrarModalFin();
+
+    // Mostrar el botón de imprimir en el modal
+    const imprimirBtn = document.getElementById('imprimirFacturaBtn');
+    imprimirBtn.style.display = 'inline-block';  // Mostrar el botón de imprimir factura
 }
 
 
@@ -903,4 +953,97 @@ window.addEventListener('click', (event) => {
     }
 });
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Función para imprimir la factura
+
+function imprimirFactura() {
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cartItems.length === 0) {
+        alert("El carrito está vacío. No se puede generar la factura.");
+        return;
+    }
+
+    // Obtener los datos de la compra
+    const nombre = localStorage.getItem('nombre') || "Nombre no proporcionado";
+    let telefono = localStorage.getItem('telefono') || "Teléfono no proporcionado";
+    const metodoPago = localStorage.getItem('metodoPago') || 'No seleccionado'; // Por defecto 'No seleccionado'
+    const costoDomicilio = parseFloat(localStorage.getItem('costoDomicilio') || 0);
+    const totalProductos = cartItems.reduce((acc, item) => acc + (parseFloat(item.price) * item.quantity), 0);
+    const totalFinal = totalProductos + costoDomicilio;
+
+    // Recuperar el número de factura y la hora de la compra desde localStorage
+    const numeroFactura = localStorage.getItem('numeroFactura') || "No disponible"; // Si no hay número, usar un valor predeterminado
+    const horaCompra = localStorage.getItem('horaCompra') || "Hora no disponible"; // Hora exacta de la compra
+
+    // Formatear el número telefónico con el patrón 000 000 0000
+    telefono = telefono.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
+
+    // Obtener la fecha actual
+    const fechaActual = new Date();
+    const dia = String(fechaActual.getDate()).padStart(2, '0');
+    const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
+    const anio = fechaActual.getFullYear();
+    const fecha = `${dia}/${mes}/${anio}`;
+
+    // Crear el bloque de texto con los productos seleccionados
+    let messageProducts = cartItems.map(item => 
+        `${item.name} - $${formatNumber(parseFloat(item.price) || 0)} x ${item.quantity} = $${formatNumber(parseFloat(item.price) * item.quantity)} ` +
+        `\n _${item.instructions || ''}_` // Instrucciones del producto
+    ).join('\n');
+
+    // Obtener los datos de domicilio
+    const ubicacion = localStorage.getItem('ubicacion') || document.getElementById('direccion').value || "Ubicación no disponible";
+    const puntoDeReferencia = document.getElementById('Punto_de_referencia').value || "No proporcionado";
+
+    // Generar el mensaje de la factura con el número de factura y domicilio
+    let facturaTexto = `
+------------------------------------------------------
+MR. GEORGE - SINCE 2022
+------------------------------------------------------
+
+DOMICILIO
+
+FACTURA Nº: #${numeroFactura}
+FECHA: ${fecha}
+HORA: ${horaCompra}
+
+DATOS DEL USUARIO:
+Nombre: ${nombre}
+Teléfono: ${telefono}
+
+DIRECCIÓN:
+${ubicacion}
+
+PUNTO DE REFERENCIA:
+${puntoDeReferencia}
+
+PRODUCTOS SELECCIONADOS:
+
+${messageProducts}
+
+TOTAL PRODUCTOS: $${formatNumber(totalProductos)}
+COSTO DE DOMICILIO: $${formatNumber(costoDomicilio)}
+
+TOTAL A PAGAR: $${formatNumber(totalFinal)}
+MÉTODO DE PAGO: ${metodoPago}
+
+------------------------------------------------------
+¡Gracias por tu compra!
+------------------------------------------------------
+`;
+
+    // Abrir una ventana nueva para mostrar la factura
+    const ventanaImpresion = window.open('', '', 'width=800,height=600');
+    ventanaImpresion.document.write(`<html><head><title>FACTURA Nº: #${numeroFactura}</title></head><body>`);
+    ventanaImpresion.document.write('<pre>' + facturaTexto + '</pre>');
+    ventanaImpresion.document.write('</body></html>');
+    ventanaImpresion.document.close();
+    ventanaImpresion.print();
+}
+
+// Función para formatear números con puntos de mil
+function formatNumber(value) {
+    return value.toLocaleString('es-CO');
+}
 

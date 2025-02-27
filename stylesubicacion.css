@@ -526,34 +526,51 @@ input[type="number"]::-webkit-inner-spin-button {
 .modal-content-fin p {
     font-size: 16px;
     color: #555;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
-/* Botón de "Volver al inicio" */
+/* Botones dentro del modal */
 .modal-content-fin button {
-    width: 250px;
-    background-color: #ffc400;
+    background-color: #ffc400; 
     color: white;
     border: none;
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
-    margin: 0px;
+    margin: 5px 0; /* Espaciado vertical */
+    font-weight: normal;
+    width: 100%; /* Hacer que los botones ocupen todo el ancho */
 }
 
+/* Botones alineados en columna */
+.modal-content-fin {
+    display: flex;
+    flex-direction: column; /* Establecer los botones en columna */
+    align-items: center; /* Alinearlos al centro */
+}
+
+/* Estilo cuando se pasa el ratón sobre los botones */
 .modal-content-fin button:hover {
     background-color: #c29502; /* Azul más oscuro al pasar el ratón */
 }
 
-
-
-
-footer {
-    background-color: #333;
+/* Estilo del botón de imprimir factura */
+#imprimirFacturaBtn {
+    width: 80%;
+    background-color: #afafaf;
     color: white;
-    text-align: center;
-    padding: 5px;
-    font-size: 0.9rem
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    font-weight: normal;
 }
+
+#imprimirFacturaBtn:hover {
+    background-color: #9c9c9c;
+}
+
+

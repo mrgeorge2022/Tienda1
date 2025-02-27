@@ -156,7 +156,7 @@ header {
 #anuncios {
     width: 100%;
     margin: 0;
-    height: 150px; /* Altura máxima del contenedor */
+    height: 200px; /* Altura máxima del contenedor */
     overflow: hidden; /* Recorta cualquier contenido que sobrepase la altura */
     position: relative; /* Necesario para posicionar el texto sobre la imagen */
   }
@@ -257,7 +257,12 @@ header {
     background-color: #27ae27;     /* Fondo verde claro */
     color: #fff;                /* Texto verde */
     padding: 3px 5px;
+}
 
+#estado-tienda.reserva {
+    background-color: orange;     /* Fondo naranja claro */
+    color: #fff;                /* Texto naranja */
+    padding: 3px 5px;
 }
 
   /* Estilo cuando la tienda está cerrada */
