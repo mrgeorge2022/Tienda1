@@ -558,7 +558,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* Estilo del botón de imprimir factura */
 #imprimirFacturaBtn {
-    width: 80%;
+    width: 100%;
     background-color: #afafaf;
     color: white;
     border: none;

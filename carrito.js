@@ -438,7 +438,7 @@ function finalizarCompra() {
 
     // Generar el mensaje de WhatsApp para "Recoger en Tienda"
     let mensaje = "*RECOGER EN TIENDA*\n\n";
-    mensaje += `*FACTURA Nº: #${numeroFactura}*\n`;
+    mensaje += `*FACTURA Nº:* #${numeroFactura}\n\n`;
     mensaje += `*FECHA:* ${fecha}\n`;
     mensaje += `*HORA:* ${hora}\n\n`;
     mensaje += "*DATOS DEL USUARIO:*\n";

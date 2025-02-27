@@ -873,7 +873,8 @@ function finalizarCompra() {
     const whatsappMessage = `
 *DOMICILIO*
 
-FACTURA Nº: #${numeroFactura}
+*FACTURA Nº:* #${numeroFactura}
+
 *FECHA:* ${fecha}
 *HORA:* ${hora}
 
