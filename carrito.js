@@ -108,6 +108,7 @@ function loadCart() {
     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
     const cartItemsList = document.getElementById('cart-items-list');
     const cartTotal = document.getElementById('cart-total');
+    const opcionesPago = document.getElementById('opcionesPago'); // El <select> de opciones de pago
     let total = 0;
 
     // LIMPIAR LA LISTA DE PRODUCTOS EN EL CARRITO
@@ -117,8 +118,15 @@ function loadCart() {
     if (cartItems.length === 0) {
         const imageUrl = 'img/iconos/carrito.png';
         cartItemsList.innerHTML = `
-        <img src="${imageUrl}" alt="Imagen sin productos" id=carritoimagen>
-        <p>No hay productos en tu carrito.</p>`;
+        <img src="${imageUrl}" alt="Imagen sin productos" id="carritoimagen">
+        <p>No hay productos en tu carrito.</p>
+        <button id="volveraproductos" onclick="window.location.href='index.html'">Añadir productos</button>
+`;
+
+        // Deshabilitar el <select> de opciones de pago si el carrito está vacío
+        if (opcionesPago) {
+            opcionesPago.disabled = true; // Deshabilitar el select de opciones de pago
+        }
     } else {
         // MOSTRAR PRODUCTOS DEL CARRITO
         cartItems.forEach((product, index) => {
@@ -153,6 +161,11 @@ function loadCart() {
             // Sumar el subtotal al total general
             total += subtotal;
         });
+
+        // Habilitar el <select> de opciones de pago si el carrito no está vacío
+        if (opcionesPago) {
+            opcionesPago.disabled = false; // Habilitar el select de opciones de pago
+        }
     }
 
     // MOSTRAR EL TOTAL CON FORMATO DE PUNTOS DE MIL
@@ -161,6 +174,7 @@ function loadCart() {
     // Guardar el total en localStorage
     localStorage.setItem('totalCarrito', total);
 }
+
 
 
 // FUNCIÓN PARA ELIMINAR UN PRODUCTO DEL CARRITO
@@ -542,7 +556,7 @@ function imprimirFactura() {
 
     // Crear el bloque de texto con los productos seleccionados
     let messageProducts = cartItems.map(item => 
-        `*${item.name} - $${formatNumber(parseFloat(item.price) || 0)} x ${item.quantity} = $${formatNumber(parseFloat(item.price) * item.quantity)}*` +  // Total de cada producto
+        `${item.name} - $${formatNumber(parseFloat(item.price) || 0)} x ${item.quantity} = $${formatNumber(parseFloat(item.price) * item.quantity)}` +  // Total de cada producto
         `\n _${item.instructions || ''}_`  // Instrucciones del producto
     ).join('\n');
 

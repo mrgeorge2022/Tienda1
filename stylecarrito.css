@@ -202,6 +202,13 @@ header nav button:hover {
     height: 20px;/* Tamaño ajustado */
 }
 
+#volveraproductos{
+    margin-top: 20px;
+    width: 70%;
+    font-size: 15px;
+    background-color: #00000070;
+    
+}
 
 /* Contenedor de acciones */
 .action-container {

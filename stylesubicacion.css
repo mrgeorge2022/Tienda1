@@ -111,7 +111,7 @@ body {
 
 /* Estilo común para todos los inputs */
 #direccion, #Punto_de_referencia {
-    border: 1px solid #fff; /* Borde blanco cuando se selecciona */
+    border: 1px solid #ffc400; /* Borde blanco cuando se selecciona */
     background-color: #444; /* Fondo oscuro cuando se selecciona */
     color: #fff; /* Color de texto blanco */
     padding: 8px; /* Ajuste de padding */
@@ -347,7 +347,6 @@ button:hover {
 }
 
 #map {
-    border: 1px solid #fffb00;
     border-radius: 8px;
     margin: 10px auto;
     height: 450px;
